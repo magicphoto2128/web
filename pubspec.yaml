@@ -1,0 +1,47 @@
+name: magic_photo_app
+description: "Magic Photo — a photo becomes a gateway to a linked video. Scan a photo on-device (perceptual hash) to play its video."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.3.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Firebase (free Spark tier: Firestore + Storage + Anonymous Auth)
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.3
+  firebase_storage: ^12.3.2
+  firebase_auth: ^5.3.1
+
+  # Media capture / selection
+  camera: ^0.11.0
+  image_picker: ^1.1.2
+
+  # Open-source on-device image processing (pure Dart perceptual hashing)
+  image: ^4.2.0
+
+  # Playback
+  video_player: ^2.9.1
+
+  # Sharing via the OS share sheet (WhatsApp and others)
+  share_plus: ^10.0.2
+
+  # Runtime permissions
+  permission_handler: ^11.3.1
+
+  # Utilities
+  uuid: ^4.5.0
+  path_provider: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

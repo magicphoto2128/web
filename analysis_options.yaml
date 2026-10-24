@@ -1,0 +1,6 @@
+include: package:flutter_lints/flutter.yaml
+
+# Project-specific tweaks can be added below as needed.
+linter:
+  rules:
+    prefer_const_constructors: true

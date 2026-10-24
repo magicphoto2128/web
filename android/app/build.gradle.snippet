@@ -1,0 +1,18 @@
+// =============================================================================
+// SNIPPET — NOT a complete build.gradle.
+//
+// After running `flutter create .`, open the generated
+//   android/app/build.gradle
+// and make sure the android { defaultConfig { ... } } block contains the
+// values below. The camera plugin needs minSdk 24+, and Firebase pushes the
+// method count past 64k so multiDex must be enabled.
+// =============================================================================
+
+android {
+    defaultConfig {
+        // Camera plugin requires API 24+.
+        minSdkVersion 24
+        // Firebase + plugins exceed the 64k method limit.
+        multiDexEnabled true
+    }
+}
