@@ -6,8 +6,8 @@
 
 import { streamMyPhotos } from '../firebase-service.js';
 import { isFirebaseConfigured } from '../firebase-config.js';
-import { navigate } from '../router.js';
-import { renderConfigBanner, el } from '../ui.js';
+import { shareMagicPhoto } from '../share.js';
+import { renderConfigBanner, openPhotoModal, showToast, el } from '../ui.js';
 
 /**
  * @param {HTMLElement} root
@@ -42,16 +42,34 @@ export function renderHome(root) {
       return;
     }
     status.textContent = '';
-    for (const photo of list) {
+    // Keep the latest list so the modal can navigate prev/next across it.
+    const photos = list;
+    const shareHandler = async (rec) => {
+      const deepLink = `${location.origin}${location.pathname}#/detail/${rec.id}`;
+      const result = await shareMagicPhoto({
+        title: 'Magic Photo',
+        text: 'Open this photo in the Magic Photo app to watch its video.',
+        url: deepLink,
+      });
+      if (result === 'copied') showToast('Link copied to clipboard.');
+      else if (result === 'unavailable') showToast('Sharing is not available on this device.');
+    };
+
+    photos.forEach((photo, i) => {
       const card = el('button', { className: 'photo-card', attrs: { type: 'button' } });
       const img = el('img', {
         className: 'photo-card__img',
         attrs: { src: photo.photoUrl, alt: 'Magic photo', loading: 'lazy' },
       });
       card.appendChild(img);
-      card.addEventListener('click', () => navigate('#/detail/' + photo.id));
+      // Clicking a photo opens a large popup starting at this photo. The modal
+      // gets the whole list + index so prev/next arrows and the Left/Right
+      // keyboard keys move through the gallery.
+      card.addEventListener('click', () =>
+        openPhotoModal({ list: photos, index: i }, { onShare: shareHandler }),
+      );
       grid.appendChild(card);
-    }
+    });
   });
 
   // Cleanup: stop listening when leaving the screen.

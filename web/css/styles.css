@@ -71,6 +71,198 @@ body {
   font-size: 0.85em;
 }
 
+/* ---- Photo popup modal (big view + side play button) ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(3px);
+  z-index: 90;
+  padding: 20px;
+}
+.modal {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  width: min(960px, 96vw);
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+/* The big media area (photo or video fill the stage). */
+.modal__media {
+  max-width: 100%;
+  max-height: 78vh;
+  display: block;
+  object-fit: contain;
+}
+/* Right-side vertical bar of action icons. Sits in the lower-right so it does
+   not collide with the vertically-centered next-arrow. */
+.modal__side {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.modal__icon-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(108, 92, 231, 0.92);
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.modal__icon-btn:hover {
+  transform: scale(1.06);
+}
+.modal__icon-btn:active {
+  transform: scale(0.96);
+}
+.modal__icon-btn--play {
+  padding-left: 4px;
+}
+.modal__icon-btn--secondary {
+  width: 48px;
+  height: 48px;
+  font-size: 1.1rem;
+  background: rgba(38, 37, 58, 0.92);
+}
+.modal__icon-label {
+  display: block;
+  font-size: 0.6rem;
+  margin-top: -2px;
+}
+.modal__media--hidden {
+  display: none;
+}
+/* Prev / next navigation arrows */
+.modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.modal__nav:hover {
+  background: rgba(108, 92, 231, 0.9);
+}
+.modal__nav:active {
+  transform: translateY(-50%) scale(0.94);
+}
+.modal__nav--prev {
+  left: 14px;
+}
+.modal__nav--next {
+  right: 14px;
+}
+.modal__counter {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+/* ---- Full-screen blocking loader overlay ---- */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(15, 14, 23, 0.82);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  padding: 24px;
+  text-align: center;
+}
+.loader-overlay__spinner {
+  width: 54px;
+  height: 54px;
+  border: 5px solid var(--color-surface-2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: loader-spin 0.9s linear infinite;
+}
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader-overlay__message {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.loader-overlay__percent {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  min-height: 1.1em;
+}
+
 .toast {
   position: fixed;
   left: 50%;

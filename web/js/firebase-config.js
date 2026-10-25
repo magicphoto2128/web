@@ -10,12 +10,13 @@
 // Firebase" banner instead of crashing.
 
 export const firebaseConfig = {
-  apiKey: 'REPLACE_ME',
-  authDomain: 'REPLACE_ME',
-  projectId: 'REPLACE_ME',
-  storageBucket: 'REPLACE_ME',
-  messagingSenderId: 'REPLACE_ME',
-  appId: 'REPLACE_ME',
+  apiKey: 'AIzaSyCRMFkL32WGgo-fQQ_kHYeWp4ZU6LWiP8s',
+  authDomain: 'magic-photo-video.firebaseapp.com',
+  projectId: 'magic-photo-video',
+  storageBucket: 'magic-photo-video.firebasestorage.app',
+  messagingSenderId: '280570915299',
+  appId: '1:280570915299:web:47254613711e13b73198d6',
+  measurementId: 'G-DNTGRRRWC1',
 };
 
 /**

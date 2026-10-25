@@ -23,7 +23,6 @@ import {
   getDocs,
   query,
   where,
-  orderBy,
   limit,
   onSnapshot,
   serverTimestamp,
@@ -217,14 +216,29 @@ export function streamMyPhotos(cb) {
     cb([]);
     return () => {};
   }
+  // NOTE: we intentionally do NOT add orderBy('createdAt') here. Combining a
+  // where() filter with an orderBy() on a different field requires a Firestore
+  // composite index. To keep setup zero-config, we filter by ownerId on the
+  // server and sort by createdAt on the client (below). Fine for a per-user
+  // list that is small.
   const q = query(
     collection(_db, COLLECTION),
     where('ownerId', '==', uid),
-    orderBy('createdAt', 'desc'),
   );
   return onSnapshot(
     q,
-    (snap) => cb(snap.docs.map(magicPhotoFromDoc)),
+    (snap) => {
+      const list = snap.docs.map(magicPhotoFromDoc);
+      // Newest first. createdAt may be null briefly for a just-written doc
+      // (server timestamp not yet resolved); treat null as "now" so it sorts
+      // to the top instead of the bottom.
+      list.sort((a, b) => {
+        const ta = a.createdAt ? a.createdAt.getTime() : Date.now();
+        const tb = b.createdAt ? b.createdAt.getTime() : Date.now();
+        return tb - ta;
+      });
+      cb(list);
+    },
     (err) => cb(null, err),
   );
 }

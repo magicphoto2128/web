@@ -7,7 +7,7 @@
 // app shell needs. Firebase/gstatic (cross-origin) requests always fall
 // through to the network.
 
-const CACHE_NAME = 'magic-photo-shell-v1';
+const CACHE_NAME = 'magic-photo-shell-v7';
 
 // App-shell files to precache. Every path here is a real file under web/.
 const SHELL = [

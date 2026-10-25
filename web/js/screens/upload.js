@@ -9,7 +9,7 @@
 import { uploadPhotoAndVideo } from '../firebase-service.js';
 import { isFirebaseConfigured } from '../firebase-config.js';
 import { navigate } from '../router.js';
-import { renderConfigBanner, showToast, el } from '../ui.js';
+import { renderConfigBanner, showToast, showLoader, hideLoader, el } from '../ui.js';
 
 /**
  * @param {HTMLElement} root
@@ -117,18 +117,29 @@ export function renderUpload(root) {
     progressWrap.classList.remove('progress--hidden');
     progressBar.style.width = '0%';
 
+    // Full-screen blocking loader: stays up from this click until the upload
+    // either succeeds (then we navigate home) or fails (then we show the error).
+    const loader = showLoader('Creating your magic photo…', '0%');
+
     try {
       await uploadPhotoAndVideo({
         photoFile,
         videoFile,
         videoUrl,
         onProgress: (p) => {
-          progressBar.style.width = Math.round(p * 100) + '%';
+          const pct = Math.round(p * 100);
+          progressBar.style.width = pct + '%';
+          // Keep the overlay message meaningful: uploading, then finalizing.
+          const message = pct >= 100 ? 'Finalizing…' : 'Uploading photo & video…';
+          loader.update(message, pct + '%');
         },
       });
+      loader.update('Done!', '100%');
+      hideLoader();
       showToast('Magic photo created.');
       navigate('#/home');
     } catch (err) {
+      hideLoader();
       errorMsg.textContent = 'Upload failed: ' + (err && err.message ? err.message : String(err));
       errorMsg.classList.remove('status--hidden');
       progressWrap.classList.add('progress--hidden');
