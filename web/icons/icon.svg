@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Magic Photo">
+  <rect width="512" height="512" rx="96" fill="#6c5ce7"/>
+  <!-- photo frame -->
+  <rect x="112" y="136" width="288" height="240" rx="24" fill="#0f0e17" stroke="#f4f4f7" stroke-width="10"/>
+  <!-- little mountains to suggest a photo -->
+  <path d="M132 336 l56 -64 44 44 60 -84 48 104 z" fill="#574bbd"/>
+  <circle cx="176" cy="196" r="22" fill="#ffd166"/>
+  <!-- play triangle -->
+  <circle cx="256" cy="256" r="62" fill="#6c5ce7" stroke="#f4f4f7" stroke-width="8"/>
+  <path d="M238 226 l52 30 -52 30 z" fill="#f4f4f7"/>
+</svg>

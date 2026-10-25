@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Magic Photo</title>
+    <meta name="description" content="A photo is a gateway to a linked video. Upload, play, share, and scan." />
+    <meta name="theme-color" content="#6c5ce7" />
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <!-- Screens mount here; app.js + router.js swap the contents. -->
+    <main id="app" class="app-main"></main>
+
+    <!-- Bottom navigation: Home / Upload / Scan -->
+    <nav class="bottom-nav" aria-label="Primary">
+      <a class="bottom-nav__item" href="#/home">
+        <span class="bottom-nav__icon" aria-hidden="true">🏠</span>
+        <span class="bottom-nav__label">Home</span>
+      </a>
+      <a class="bottom-nav__item" href="#/upload">
+        <span class="bottom-nav__icon" aria-hidden="true">⬆️</span>
+        <span class="bottom-nav__label">Upload</span>
+      </a>
+      <a class="bottom-nav__item" href="#/scan">
+        <span class="bottom-nav__icon" aria-hidden="true">📷</span>
+        <span class="bottom-nav__label">Scan</span>
+      </a>
+    </nav>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
